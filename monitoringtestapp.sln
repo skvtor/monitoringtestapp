@@ -1,0 +1,55 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.1259
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IpcCore", "IpcCore\IpcCore.csproj", "{341F35E7-650C-4B7A-BB05-59424137B593}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MetricsMonitor", "MetricsMonitor\MetricsMonitor.csproj", "{B2E2028D-B83A-43EF-9F09-16A1DF7B1CCB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MetricsHub", "MetricsHub\MetricsHub.csproj", "{6A61B4D7-9BA6-4373-913D-D06F476AB0A0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MetricsRestService", "MetricsRestService\MetricsRestService.csproj", "{A6DD3852-C021-40D3-A292-1D34B5A43755}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MetricsCommon", "MetricsCommon\MetricsCommon.csproj", "{3230362D-E7D9-4C8F-ACD5-D4F724DC5845}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MetricsWinProviders", "MetricsWinProviders\MetricsWinProviders.csproj", "{8B8C70AE-CB8B-4364-B680-316B6E50265E}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{341F35E7-650C-4B7A-BB05-59424137B593}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{341F35E7-650C-4B7A-BB05-59424137B593}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{341F35E7-650C-4B7A-BB05-59424137B593}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{341F35E7-650C-4B7A-BB05-59424137B593}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B2E2028D-B83A-43EF-9F09-16A1DF7B1CCB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B2E2028D-B83A-43EF-9F09-16A1DF7B1CCB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B2E2028D-B83A-43EF-9F09-16A1DF7B1CCB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B2E2028D-B83A-43EF-9F09-16A1DF7B1CCB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6A61B4D7-9BA6-4373-913D-D06F476AB0A0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6A61B4D7-9BA6-4373-913D-D06F476AB0A0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6A61B4D7-9BA6-4373-913D-D06F476AB0A0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6A61B4D7-9BA6-4373-913D-D06F476AB0A0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A6DD3852-C021-40D3-A292-1D34B5A43755}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A6DD3852-C021-40D3-A292-1D34B5A43755}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A6DD3852-C021-40D3-A292-1D34B5A43755}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A6DD3852-C021-40D3-A292-1D34B5A43755}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3230362D-E7D9-4C8F-ACD5-D4F724DC5845}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3230362D-E7D9-4C8F-ACD5-D4F724DC5845}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3230362D-E7D9-4C8F-ACD5-D4F724DC5845}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3230362D-E7D9-4C8F-ACD5-D4F724DC5845}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8B8C70AE-CB8B-4364-B680-316B6E50265E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8B8C70AE-CB8B-4364-B680-316B6E50265E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8B8C70AE-CB8B-4364-B680-316B6E50265E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8B8C70AE-CB8B-4364-B680-316B6E50265E}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {78FF172B-CF6D-46A7-8313-8436CEAE643C}
+	EndGlobalSection
+EndGlobal
