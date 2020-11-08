@@ -25,7 +25,7 @@ namespace MetricsRestService
             _hub = new MetricsHubService();
             _hub.Start(metricConfig);
 
-            //Process.Start("MetricsMonitor.exe");
+            Process.Start("MetricsMonitor.exe");
 
             string baseUri = metricConfig.ConfigItems[Constants.Config_ApiUri];
             Console.WriteLine("Starting web Server...");
