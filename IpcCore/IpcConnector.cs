@@ -8,15 +8,14 @@ namespace IpcCore
     {
         public static IIpcClient Connect(Configuration config)
         {
-            var client = new WcfPipeClient(config.ConfigItems[Constants.IpcHubPipeUriParamName]);
+            var client = new WcfPipeClient(config.ConfigItems[Constants.Config_IpcHubPipeUri]);
             client.Connect();
             return client;
         }
 
-        public static IIpcServer StartServer(Configuration config)
+        public static IIpcServer GetServer(Configuration config)
         {
-            var server = new WcfPipeServer(config.ConfigItems[Constants.IpcHubPipeUriParamName]);
-            server.Start();
+            var server = new WcfPipeServer(config.ConfigItems[Constants.Config_IpcHubPipeUri]);
             return server;
         }
     }

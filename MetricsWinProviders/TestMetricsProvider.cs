@@ -1,7 +1,10 @@
 ﻿using MetricsCommon;
+using MetricsCommon.Collections;
 using MetricsCommon.Models;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Threading.Tasks;
 
 namespace MetricsWinProviders
 {
@@ -11,7 +14,7 @@ namespace MetricsWinProviders
 
         private Dictionary<int, _processinfo> _counters = new Dictionary<int, _processinfo>();
         private HashSet<int> _processedPids = new HashSet<int>();
-        public List<MetricBase> CaptureMetrics()
+        public void CaptureMetrics(IMetricStream stream)
         {
             var retVal = new List<MetricBase>();
             _processedPids.Clear();
@@ -29,10 +32,10 @@ namespace MetricsWinProviders
                     //pinfo.NetworkUsage = new PerformanceCounter("Network Interface", "% Processor Time", proc.ProcessName);
                 }
 
-                var metric = new MetricBase();//new ProcessDescriptorMetric();
+                var metric = new ProcessDescriptorMetric();
                 try
                 {
-                    
+                    metric.TimeStamp = DateTime.UtcNow;
                     metric.Name = proc.ProcessName;
                     metric.Pid = proc.Id;
                     metric.SessionId = proc.SessionId;
@@ -45,8 +48,8 @@ namespace MetricsWinProviders
                     //todo: ???
                     metric = null;
                 }
-                if(metric != null)
-                    retVal.Add(metric);
+                if (metric != null)
+                    stream.Append(metric);
 
                 _processedPids.Add(proc.Id);
             }
@@ -62,8 +65,6 @@ namespace MetricsWinProviders
                     _counters.Remove(counters.Key);
                 }
             }
-
-            return retVal;
         }
 
         class _processinfo

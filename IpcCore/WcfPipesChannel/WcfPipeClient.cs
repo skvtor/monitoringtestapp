@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.ServiceModel;
+using System.Threading.Tasks;
 using MetricsCommon.Models;
 using MetricsCommon.Serialization;
 
@@ -27,20 +28,14 @@ namespace IpcCore.WcfPipesChannel
             channel = pipeFactory.CreateChannel();
         }
 
-        public void ReportMetrics(List<MetricBase> metrics)
+        public void ReportMetric(MetricBase metric)
         {
-            foreach (var metric in metrics)
+            var metricSerialized = new MetricsContainer
             {
-                var metricSerialized = new MetricsContainer
-                {
-                    MetricsSerialized = _serializator.Serialize(metric)
-                };
+                MetricsSerialized = _serializator.Serialize(metric)
+            };
 
-                channel.Register(metricSerialized);
-            }
-
-            //if(containers.Any())
-            //    channel.Register(containers);
+            channel.Register(metricSerialized);
         }
     }
 }

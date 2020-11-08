@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using MetricsCommon;
 using MetricsCommon.Configuration;
 using MetricsHub;
 
@@ -19,7 +20,8 @@ namespace MetricsRestService
             {
                 ConfigItems = new Dictionary<string, string>
                 {
-                    { "hubPipeUri","net.pipe://localhost/Pipe" }
+                    { Constants.Config_IpcHubPipeUri,"net.pipe://localhost/monitoringtestpipe" },
+                    { Constants.Config_MetricMeasurmantPeriod,"3000" }
                 }
             };
 

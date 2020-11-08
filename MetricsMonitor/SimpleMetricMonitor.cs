@@ -1,9 +1,11 @@
 ﻿using IpcCore;
 using MetricsCommon;
+using MetricsCommon.Collections;
 using MetricsCommon.Configuration;
 using MetricsCommon.Models;
 using MetricsWinProviders;
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -16,7 +18,14 @@ namespace MetricsMonitor
     {
         Configuration _config;
         List<IMetricsProvider> _metricsProviders;
-            
+        Timer _timer = null;
+        IIpcClient _client;
+        Thread _thread;
+        ConcurrentQueue<MetricBase> _queue = new ConcurrentQueue<MetricBase>();
+        AutoResetEvent _onNewMessage = new AutoResetEvent(false);
+        SemaphoreSlim _onTickEvent = new SemaphoreSlim(0);
+        
+
         public SimpleMetricMonitor(Configuration config)
         {
             _config = config;
@@ -24,25 +33,56 @@ namespace MetricsMonitor
             _metricsProviders.Add(new TestMetricsProvider());
         }
 
-        public void Run()
+        public async Task Run()
         {
-            var ipcClient = IpcConnector.Connect(_config);
+            _thread = new Thread(MetricsSendingLoop);
+            _thread.Start();
 
-            while (true)
-            {
-                var metrics = new List<MetricBase>();
-                foreach(var metricsProvider in _metricsProviders)
-                    metrics.AddRange(metricsProvider.CaptureMetrics());
+            var periodMs = int.Parse(_config.ConfigItems[Constants.Config_MetricMeasurmantPeriod]);
+            periodMs = 30000;
 
-                ipcClient.ReportMetrics(metrics);
+            _client = IpcConnector.Connect(_config);
+            _timer = new Timer(OnTimerTick, null, periodMs, periodMs);
 
-                Thread.Sleep(3000);
-            }
+            await MetricsMeasurmentLoop();
         }
-
         public void Stop()
         {
             //todo
+        }
+
+        private async Task MetricsMeasurmentLoop()
+        {
+            var metricStream = new MetricStreamProcessor(OnMetricHasArrived);
+            //todo
+            while (true)
+            {
+                foreach (var metricsProvider in _metricsProviders)
+                    metricsProvider.CaptureMetrics(metricStream);
+
+                await _onTickEvent.WaitAsync();
+            }
+        }
+        private void MetricsSendingLoop()
+        {
+            while (true)
+            {
+                MetricBase metric;
+                if (_queue.TryDequeue(out metric))
+                    _client.ReportMetric(metric);
+
+                _onNewMessage.WaitOne();
+            }
+        }
+
+        private void OnTimerTick(object state)
+        {
+            _onTickEvent.Release();
+        }
+        private void OnMetricHasArrived(MetricBase metric)
+        {
+            _queue.Enqueue(metric);
+            _onNewMessage.Set();
         }
     }
 }

@@ -16,7 +16,7 @@ namespace MetricsMonitor
         {
             var config = ConfigurationManager.GetConfig();
             var monitor = new SimpleMetricMonitor(config);
-            monitor.Run();
+            Task.Run(async () => await monitor.Run()).Wait();
         }
     }
 }

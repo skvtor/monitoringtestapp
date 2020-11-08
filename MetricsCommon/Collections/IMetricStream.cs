@@ -5,11 +5,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace IpcCore
+namespace MetricsCommon.Collections
 {
-    public interface IIpcServer
+    public interface IMetricStream
     {
-        void Start();
-        event Action<MetricBase> OnMetricsHasArrived;
+        void Append(MetricBase metric);
     }
 }

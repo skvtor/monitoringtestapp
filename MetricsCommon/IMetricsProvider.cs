@@ -1,4 +1,5 @@
-﻿using MetricsCommon.Models;
+﻿using MetricsCommon.Collections;
+using MetricsCommon.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,6 +11,6 @@ namespace MetricsCommon
     public interface IMetricsProvider
     {
         string Name { get; }
-        List<MetricBase> CaptureMetrics();
+        void CaptureMetrics(IMetricStream stream);
     }
 }
