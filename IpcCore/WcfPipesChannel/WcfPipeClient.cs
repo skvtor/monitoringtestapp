@@ -1,6 +1,9 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
+using System.Runtime.Serialization.Formatters.Binary;
 using System.ServiceModel;
 using MetricsCommon.Models;
+using MetricsCommon.Serialization;
 
 namespace IpcCore.WcfPipesChannel
 {
@@ -8,9 +11,11 @@ namespace IpcCore.WcfPipesChannel
     {
         string _uri;
         IMetricsIpcPipeContract channel;
+        MetricsSerializator _serializator;
         public WcfPipeClient(string uri)
         {
             _uri = uri;
+            _serializator = new MetricsSerializator();
         }
 
         public void Connect()
@@ -22,9 +27,20 @@ namespace IpcCore.WcfPipesChannel
             channel = pipeFactory.CreateChannel();
         }
 
-        public void ReportMetrics(List<Metric> metrics)
+        public void ReportMetrics(List<MetricBase> metrics)
         {
-            var code = channel.Register(new MetricsContainer());
+            foreach (var metric in metrics)
+            {
+                var metricSerialized = new MetricsContainer
+                {
+                    MetricsSerialized = _serializator.Serialize(metric)
+                };
+
+                channel.Register(metricSerialized);
+            }
+
+            //if(containers.Any())
+            //    channel.Register(containers);
         }
     }
 }

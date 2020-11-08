@@ -16,7 +16,7 @@ namespace MetricsCommon.Configuration
 
         public async Task Publish(Configuration config)
         {
-            var data = Serializator.SerializeToString(config);
+            var data = StringSerializator.SerializeToString(config);
             var size = System.Text.ASCIIEncoding.Unicode.GetByteCount(data);
             _configSharedFile = MemoryMappedFile.CreateNew(SharedConfigName, size+1);
 
@@ -38,7 +38,7 @@ namespace MetricsCommon.Configuration
             }
         }
 
-        public static async Task<Configuration> GetConfig()
+        public static Configuration GetConfig()
         {
             Mutex mutex;
             if(Mutex.TryOpenExisting(SharedConfigMutexName, out mutex))
@@ -50,8 +50,8 @@ namespace MetricsCommon.Configuration
                     {
                         mutex.WaitOne();
                         var reader = new StreamReader(stream);
-                        var data = await reader.ReadToEndAsync();
-                        return Serializator.Deserialize<Configuration>(data);
+                        var data = reader.ReadToEnd();
+                        return StringSerializator.Deserialize<Configuration>(data);
                     }
                     finally
                     {

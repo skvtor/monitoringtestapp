@@ -46,10 +46,13 @@
   <ItemGroup>
     <Compile Include="Configuration\Configuration.cs" />
     <Compile Include="Configuration\ConfigurationManager.cs" />
+    <Compile Include="Constants.cs" />
     <Compile Include="IMetricsProvider.cs" />
-    <Compile Include="Models\Metric.cs" />
+    <Compile Include="Models\MetricBase.cs" />
+    <Compile Include="Models\ProcessDescriptorMetric.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Serialization\Serializator.cs" />
+    <Compile Include="Serialization\MetricsSerializator.cs" />
+    <Compile Include="Serialization\StringSerializator.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

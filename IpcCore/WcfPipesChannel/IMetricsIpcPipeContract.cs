@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MetricsCommon.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.ServiceModel;
@@ -11,6 +12,6 @@ namespace IpcCore.WcfPipesChannel
     internal interface IMetricsIpcPipeContract
     {
         [OperationContract]
-        byte Register(MetricsContainer container);
+        void Register(MetricsContainer metric);
     }
 }

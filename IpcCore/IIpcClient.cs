@@ -9,6 +9,6 @@ namespace IpcCore
 {
     public interface IIpcClient
     {
-        void ReportMetrics(List<Metric> metrics);
+        void ReportMetrics(List<MetricBase> metrics);
     }
 }

@@ -1,8 +1,11 @@
-﻿using MetricsCommon.Configuration;
+﻿using IpcCore;
+using MetricsCommon.Configuration;
+using MetricsCommon.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace MetricsMonitor
@@ -11,14 +14,9 @@ namespace MetricsMonitor
     {
         static void Main(string[] args)
         {
-            var t = Task.Run(() => MonitorBody());
-            t.Wait();
-        }
-
-        static async Task MonitorBody()
-        {
-            var config = await ConfigurationManager.GetConfig();
-            int i = 2345;
+            var config = ConfigurationManager.GetConfig();
+            var monitor = new SimpleMetricMonitor(config);
+            monitor.Run();
         }
     }
 }

@@ -10,6 +10,6 @@ namespace MetricsCommon
     public interface IMetricsProvider
     {
         string Name { get; }
-        List<Metric> CaptureMetrics();
+        List<MetricBase> CaptureMetrics();
     }
 }

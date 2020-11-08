@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace MetricsCommon.Serialization
 {
-    public class Serializator
+    public class StringSerializator
     {
         public static string SerializeToString(object obj)
         {

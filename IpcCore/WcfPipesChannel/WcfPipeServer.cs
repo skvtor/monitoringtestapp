@@ -1,4 +1,6 @@
-﻿using System;
+﻿using MetricsCommon.Models;
+using MetricsCommon.Serialization;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.ServiceModel;
@@ -11,17 +13,25 @@ namespace IpcCore.WcfPipesChannel
     internal class WcfPipeServer: IIpcServer, IMetricsIpcPipeContract
     {
         string _uri;
-        IMetricsIpcPipeContract channel;
+        IMetricsIpcPipeContract _channel;
         ServiceHost _host;
+        MetricsSerializator _serializator;
+
+        public event Action<MetricBase> OnMetricsHasArrived;
 
         public WcfPipeServer(string uri)
         {
+            _serializator = new MetricsSerializator();
             _uri = uri;
         }
 
-        public byte Register(MetricsContainer container)
+        public void Register(MetricsContainer container)
         {
-            return 0;
+            if(container != null)
+            {
+                var metric = _serializator.Desererialize(container.MetricsSerialized);
+                OnMetricsHasArrived?.Invoke(metric);
+            }
         }
 
         public void Start()
