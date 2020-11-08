@@ -39,7 +39,6 @@ namespace MetricsMonitor
             _thread.Start();
 
             var periodMs = int.Parse(_config.ConfigItems[Constants.Config_MetricMeasurmantPeriod]);
-            periodMs = 30000;
 
             _client = IpcConnector.Connect(_config);
             _timer = new Timer(OnTimerTick, null, periodMs, periodMs);

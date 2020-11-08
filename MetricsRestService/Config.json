@@ -1,0 +1,7 @@
+﻿{
+  "ConfigItems": {
+    "hubPipeUri": "net.pipe://localhost/monitoringtestpipe",
+    "measurmentPeriod": "5000",
+    "apiUri": "http://localhost:8081"
+  }
+}

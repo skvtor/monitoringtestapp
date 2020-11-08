@@ -1,12 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
+using System.Diagnostics;
+using System.IO;
+using System.Web.Http;
 using MetricsCommon;
 using MetricsCommon.Configuration;
 using MetricsHub;
+using Microsoft.Owin.Hosting;
+using Newtonsoft.Json;
+using Owin;
+using Unity;
+using Unity.WebApi;
 
 namespace MetricsRestService
 {
@@ -16,23 +20,28 @@ namespace MetricsRestService
 
         static void Main(string[] args)
         {
-            var config = new Configuration()
-            {
-                ConfigItems = new Dictionary<string, string>
-                {
-                    { Constants.Config_IpcHubPipeUri,"net.pipe://localhost/monitoringtestpipe" },
-                    { Constants.Config_MetricMeasurmantPeriod,"3000" }
-                }
-            };
+            var metricConfig = JsonConvert.DeserializeObject<Configuration>(File.ReadAllText("Config.json"));
 
             _hub = new MetricsHubService();
-            var t = _hub.Start(config);
-            t.Wait();
+            _hub.Start(metricConfig);
 
-            while (true)
-            {
-                Thread.Sleep(1000);
-            }
+            //Process.Start("MetricsMonitor.exe");
+
+            string baseUri = metricConfig.ConfigItems[Constants.Config_ApiUri];
+            Console.WriteLine("Starting web Server...");
+            WebApp.Start(baseUri, (appBuilder) => {
+                HttpConfiguration config = new HttpConfiguration();
+
+                var container = new UnityContainer();
+                container.RegisterFactory<MetricsHubService>((obj) => _hub);
+                config.DependencyResolver = new UnityDependencyResolver(container);
+
+                config.MapHttpAttributeRoutes();
+                appBuilder.UseWebApi(config);
+            });
+            Console.WriteLine("Please check the URL: {0}/api/metrics/processes", baseUri);
+            Console.WriteLine("Press Enter to quit. ");
+            Console.ReadLine();
         }
     }
 }

@@ -63,6 +63,11 @@ namespace MetricsWinProviders
                     info.MemoryUsage.Dispose();
                     info.DiscUsage.Dispose();
                     _counters.Remove(counters.Key);
+
+                    stream.Append(new ProcessDescriptorMetric {
+                        TimeStamp = DateTime.UtcNow,
+                        Pid = counters.Key
+                    });
                 }
             }
         }

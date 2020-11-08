@@ -41,8 +41,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="TestProcessMetricAggregation.cs" />
+    <Compile Include="IAggregationContainer.cs" />
+    <Compile Include="MetricAggregator.cs" />
     <Compile Include="MetricsHubService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TestProcessMetrics.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\IpcCore\IpcCore.csproj">

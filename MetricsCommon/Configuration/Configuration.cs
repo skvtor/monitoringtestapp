@@ -8,7 +8,6 @@ namespace MetricsCommon.Configuration
 {
     public class Configuration
     {
-        public string Version { get; set; }
         public Dictionary<string, string> ConfigItems { get; set; }
     }
 }

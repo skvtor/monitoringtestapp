@@ -1,5 +1,7 @@
 ﻿using IpcCore;
+using MetricsCommon;
 using MetricsCommon.Configuration;
+using MetricsCommon.Models;
 using System;
 using System.Threading.Tasks;
 
@@ -10,21 +12,30 @@ namespace MetricsHub
         ConfigurationManager _configManager;
         Configuration _config;
         IIpcServer _ipcServer;
+        MetricAggregator _aggregator;
 
-        public async Task Start(Configuration config)
+        public void Start(Configuration config)
         {
             _config = config;
             _configManager = new ConfigurationManager();
-            await _configManager.Publish(config);
+            _configManager.Publish(config);
+
+            _aggregator = new MetricAggregator();
+            _aggregator.Start();
 
             _ipcServer = IpcConnector.GetServer(config);
-            _ipcServer.OnMetricsHasArrived += _ipcServer_OnMetricsHasArrived;
+            _ipcServer.OnMetricsHasArrived += OnMetricsHasArrived;
             _ipcServer.Start();
         }
 
-        private void _ipcServer_OnMetricsHasArrived(MetricsCommon.Models.MetricBase obj)
+        public TestProcessMetrics GetTestMetrics()
         {
-            
+            return (TestProcessMetrics)_aggregator.GetAggregation(Constants.Metric_ProcessDescriptor);
+        }
+
+        private void OnMetricsHasArrived(MetricBase metric)
+        {
+            _aggregator.Aggregate(metric);
         }
     }
 }

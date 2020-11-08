@@ -14,7 +14,7 @@ namespace MetricsCommon.Configuration
         Mutex _syncMutex = null;
         MemoryMappedFile _configSharedFile = null;
 
-        public async Task Publish(Configuration config)
+        public void Publish(Configuration config)
         {
             var data = StringSerializator.SerializeToString(config);
             var size = System.Text.ASCIIEncoding.Unicode.GetByteCount(data);
