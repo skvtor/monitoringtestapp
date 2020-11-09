@@ -1,21 +1,17 @@
 ﻿using MetricsCommon;
 using MetricsCommon.Models;
-using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 
 namespace MetricsHub
 {
     internal class MetricAggregator
     {
-        Thread _thread;
-        AutoResetEvent _onNewMetric;
-        ConcurrentQueue<MetricBase> _metricsToAggregate = new ConcurrentQueue<MetricBase>();
-        Dictionary<string, IAggregationContainer> _containers = new Dictionary<string, IAggregationContainer>();
+        private Thread _thread;
+        private AutoResetEvent _onNewMetric;
+        private ConcurrentQueue<MetricBase> _metricsToAggregate = new ConcurrentQueue<MetricBase>();
+        private Dictionary<string, IAggregationContainer> _containers = new Dictionary<string, IAggregationContainer>();
 
         public MetricAggregator()
         {

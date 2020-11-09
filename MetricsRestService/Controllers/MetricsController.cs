@@ -7,7 +7,7 @@ namespace MetricsRestService.Controllers
     [RoutePrefix("api/metrics")]
     public class MetricsController: ApiController
     {
-        MetricsHubService _hub;
+        private MetricsHubService _hub;
 
         public MetricsController(MetricsHubService hub)
         {

@@ -1,11 +1,4 @@
-﻿using IpcCore;
-using MetricsCommon.Configuration;
-using MetricsCommon.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading;
+﻿using MetricsCommon.Configuration;
 using System.Threading.Tasks;
 
 namespace MetricsMonitor

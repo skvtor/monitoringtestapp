@@ -1,19 +1,14 @@
 ﻿using MetricsCommon.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 
 namespace MetricsHub
 {
     internal class TestProcessMetricAggregation: IAggregationContainer
     {
-        int _maxCpuUsagePid = -1;
-        double _maxCpuUsage = 0;
-        int _maxMemoryUsagePid = -1;
-        double _maxMemoryUsage = 0;
+        private int _maxCpuUsagePid = -1;
+        private double _maxCpuUsage = 0;
+        private int _maxMemoryUsagePid = -1;
+        private double _maxMemoryUsage = 0;
 
         ReaderWriterLock _lock = new ReaderWriterLock();
 

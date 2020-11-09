@@ -1,17 +1,13 @@
 ﻿using MetricsCommon.Models;
-using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Runtime.Serialization.Formatters.Binary;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MetricsCommon.Serialization
 {
     public class MetricsSerializator
     {
-        BinaryFormatter _formatter;
+        private BinaryFormatter _formatter;
+
         public MetricsSerializator()
         {
             _formatter = new BinaryFormatter();

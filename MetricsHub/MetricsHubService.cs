@@ -2,17 +2,15 @@
 using MetricsCommon;
 using MetricsCommon.Configuration;
 using MetricsCommon.Models;
-using System;
-using System.Threading.Tasks;
 
 namespace MetricsHub
 {
     public class MetricsHubService
     {
-        ConfigurationManager _configManager;
-        Configuration _config;
-        IIpcServer _ipcServer;
-        MetricAggregator _aggregator;
+        private ConfigurationManager _configManager;
+        private Configuration _config;
+        private IIpcServer _ipcServer;
+        private MetricAggregator _aggregator;
 
         public void Start(Configuration config)
         {

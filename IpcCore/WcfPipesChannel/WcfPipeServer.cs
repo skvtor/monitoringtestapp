@@ -8,10 +8,9 @@ namespace IpcCore.WcfPipesChannel
     [ServiceBehavior(InstanceContextMode = InstanceContextMode.Single)]
     internal class WcfPipeServer: IIpcServer, IMetricsIpcPipeContract
     {
-        string _uri;
-        IMetricsIpcPipeContract _channel;
-        ServiceHost _host;
-        MetricsSerializator _serializator;
+        private string _uri;
+        private ServiceHost _host;
+        private MetricsSerializator _serializator;
 
         public event Action<MetricBase> OnMetricsHasArrived;
 

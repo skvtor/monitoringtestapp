@@ -2,23 +2,23 @@
 using System;
 using System.IO;
 using System.IO.MemoryMappedFiles;
+using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 
 namespace MetricsCommon.Configuration
 {
     public class ConfigurationManager: IDisposable
     {
-        const string SharedConfigName = "monitoringtestappconfig";
-        const string SharedConfigMutexName = "monitoringtestappconfigmutex";
-        Mutex _syncMutex = null;
-        MemoryMappedFile _configSharedFile = null;
+        private const string SharedConfigName = "monitoringtestappconfig";
+        private const string SharedConfigMutexName = "monitoringtestappconfigmutex";
+        private Mutex _syncMutex = null;
+        private MemoryMappedFile _configSharedFile = null;
 
         public void Publish(Configuration config)
         {
             var data = StringSerializator.SerializeToString(config);
-            var size = System.Text.ASCIIEncoding.Unicode.GetByteCount(data);
-            _configSharedFile = MemoryMappedFile.CreateNew(SharedConfigName, size+1);
+            var size = Encoding.UTF8.GetByteCount(data);
+            _configSharedFile = MemoryMappedFile.CreateNew(SharedConfigName, size + 1);
 
             _syncMutex = new Mutex(false, SharedConfigMutexName);
             try

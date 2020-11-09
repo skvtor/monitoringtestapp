@@ -4,7 +4,6 @@ using MetricsCommon.Models;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Threading.Tasks;
 
 namespace MetricsWinProviders
 {
@@ -14,6 +13,7 @@ namespace MetricsWinProviders
 
         private Dictionary<int, _processinfo> _counters = new Dictionary<int, _processinfo>();
         private HashSet<int> _processedPids = new HashSet<int>();
+
         public void CaptureMetrics(IMetricStream stream)
         {
             var retVal = new List<MetricBase>();

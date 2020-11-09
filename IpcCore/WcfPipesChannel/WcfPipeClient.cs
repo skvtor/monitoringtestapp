@@ -1,8 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.Serialization.Formatters.Binary;
-using System.ServiceModel;
-using System.Threading.Tasks;
+﻿using System.ServiceModel;
 using MetricsCommon.Models;
 using MetricsCommon.Serialization;
 
@@ -10,9 +6,9 @@ namespace IpcCore.WcfPipesChannel
 {
     internal class WcfPipeClient : IIpcClient
     {
-        string _uri;
-        IMetricsIpcPipeContract channel;
-        MetricsSerializator _serializator;
+        private string _uri;
+        private IMetricsIpcPipeContract channel;
+        private MetricsSerializator _serializator;
         public WcfPipeClient(string uri)
         {
             _uri = uri;
